@@ -10,7 +10,7 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static void DapperDataAccess()
+        public static TestResult DapperDataAccess()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             IEnumerable<Customer> customers = new List<Customer>();
@@ -27,11 +27,9 @@ namespace DataAccessTest
             }
             stopwatch.Stop();
 
-            Console.WriteLine("Dapper");
-            Console.WriteLine("Objetos Gerados: {0}", customers.ToList().Count);
-            Console.WriteLine("Tempo Total: {0}", stopwatch.Elapsed);
-
             customers = null;
+            
+            return new TestResult("Dapper", stopwatch.Elapsed);
         }
     }
 }

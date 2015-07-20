@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using NHibernate.Mapping;
 
 namespace DataAccessTest
 {
@@ -8,23 +10,22 @@ namespace DataAccessTest
 
         static void Main(string[] args)
         {
-            //AdoDataAccess();
-            //Console.WriteLine();
-            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
-
-            //DapperDataAccess();
-            //Console.WriteLine();
-            //GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
-/*
-            EfDataAccess();
-            Console.WriteLine();
-            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);*/
-
-            EfFastDataAccess();
-            Console.WriteLine();
+            var results = new List<TestResult>();
+            results.Add(AdoDataAccess());
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
 
-            //NhDataAccess();
+            results.Add(DapperDataAccess());
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
+
+            results.Add(EfDataAccess());
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
+
+            results.Add(EfFastDataAccess());
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true);
+
+            results.Add(NhDataAccess());
+
+            ConsoleTable.From(results).Write();
 
             Console.WriteLine("Teste finalizado");
             Console.ReadKey();

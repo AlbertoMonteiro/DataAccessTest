@@ -8,7 +8,7 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static void EfDataAccess()
+        public static TestResult EfDataAccess()
         {
             List<Customer> customers = null;
             var db = new DataContext();
@@ -22,12 +22,9 @@ namespace DataAccessTest
             }
             stopwatch.Stop();
             db = null;
-
-            Console.WriteLine("Entity Framework");
-            Console.WriteLine("Objetos Gerados: {0}", customers.Count);
-            Console.WriteLine("Tempo Total: {0}", stopwatch.Elapsed);
-
             customers = null;
+
+            return new TestResult("Entity Framework", stopwatch.Elapsed);
         }
     }
 }

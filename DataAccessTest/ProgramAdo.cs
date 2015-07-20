@@ -8,7 +8,7 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static void AdoDataAccess()
+        public static TestResult AdoDataAccess()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             var customers = new List<Customer>();
@@ -39,11 +39,9 @@ namespace DataAccessTest
             }
             stopwatch.Stop();
 
-            Console.WriteLine("ADO Puro");
-            Console.WriteLine("Objetos Gerados: {0}", customers.Count);
-            Console.WriteLine("Tempo Total: {0}", stopwatch.Elapsed);
-
             customers = null;
+            
+            return new TestResult("ADO Puro", stopwatch.Elapsed);
         }
 
     }

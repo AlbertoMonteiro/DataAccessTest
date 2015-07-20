@@ -8,7 +8,7 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static void EfFastDataAccess()
+        public static TestResult EfFastDataAccess()
         {
             List<Customer> customers = null;
             var db = new DataContext();
@@ -30,11 +30,9 @@ namespace DataAccessTest
             stopwatch.Stop();
             db = null;
 
-            Console.WriteLine("Entity Framework Rápido");
-            Console.WriteLine("Objetos Gerados: {0}", customers.Count);
-            Console.WriteLine("Tempo Total: {0}", stopwatch.Elapsed);
-
             customers = null;
+            
+            return new TestResult("Entity Framework Fast", stopwatch.Elapsed);
         }
     }
 }

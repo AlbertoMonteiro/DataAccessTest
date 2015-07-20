@@ -11,7 +11,7 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static void NhDataAccess()
+        public static TestResult NhDataAccess()
         {
             var sessionFactory = CreateSessionFactory();
 
@@ -27,13 +27,10 @@ namespace DataAccessTest
                 }
             }
             stopwatch.Stop();
-
-            Console.WriteLine("NHibernate");
-            Console.WriteLine("Objetos Gerados: {0}", customers.Count);
-            Console.WriteLine("Tempo Total: {0}", stopwatch.Elapsed);
-
             customers = null;
             sessionFactory.Dispose();
+            
+            return new TestResult("NHibernate", stopwatch.Elapsed);
         }
 
         private static ISessionFactory CreateSessionFactory()
