@@ -18,6 +18,7 @@ namespace DataAccessTest
             var stopwatch = Stopwatch.StartNew();
             using (var session = sessionFactory.OpenSession())
             {
+                session.FlushMode = FlushMode.Manual;
                 for (int i = 0; i < TOTAL_TIMES; i++)
                 {
                     customers = session.Query<Customer>().ToList();
@@ -33,7 +34,7 @@ namespace DataAccessTest
         private static ISessionFactory CreateSessionFactory(string connectionString)
         {
             return Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012
+                .Database(PostgreSQLConfiguration.Standard
                 .ConnectionString(c => c.Is(connectionString)))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
                 .BuildSessionFactory();

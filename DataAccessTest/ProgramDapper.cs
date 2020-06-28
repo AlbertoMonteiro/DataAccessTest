@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using Dapper;
+using Npgsql;
 
 namespace DataAccessTest
 {
@@ -12,12 +13,12 @@ namespace DataAccessTest
             IEnumerable<Customer> customers = new List<Customer>();
 
             var stopwatch = Stopwatch.StartNew();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
                 for (int i = 0; i < TOTAL_TIMES; i++)
                 {
-                    customers = conn.Query<Customer>("SELECT [id] as Id,[first_name] as FirstName, [last_name] as LastName, [email] as Email, [country] as Country FROM [dbo].[Customer]");
+                    customers = conn.Query<Customer>("SELECT id, first_name, last_name, email, country FROM public.\"Customer\"");
                 }
                 conn.Close();
             }

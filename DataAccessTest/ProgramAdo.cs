@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using Npgsql;
 
 namespace DataAccessTest
 {
@@ -11,10 +12,10 @@ namespace DataAccessTest
             var customers = new List<Customer>();
 
             var stopwatch = Stopwatch.StartNew();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
-                var cmd = new SqlCommand("SELECT [id],[first_name],[last_name],[email],[country] FROM [dbo].[Customer]", conn);
+                var cmd = new NpgsqlCommand("SELECT id, first_name, last_name, email, country FROM public.\"Customer\"", conn);
                 for (int i = 0; i < TOTAL_TIMES; i++)
                 {
                     using (var dr = cmd.ExecuteReader())

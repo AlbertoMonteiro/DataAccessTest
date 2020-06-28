@@ -6,7 +6,8 @@ namespace DataAccessTest
     partial class Program
     {
         private const int TOTAL_TIMES = 1;
-        private const string CONNECTION_STRING = @"Server=(localdb)\mssqllocaldb;Database=DataAccessTest;Integrated security=true";
+        private const string CONNECTION_STRING = @"Host=localhost;Database=DataAccessTest;Username=postgres;Password=root";//;SSL Mode=Prefer;Trust Server Certificate=True
+        //private const string CONNECTION_STRING = @"Server=(localdb)\mssqllocaldb;Database=DataAccessTest;Integrated security=true";
 
         static void Main(string[] args)
         {
