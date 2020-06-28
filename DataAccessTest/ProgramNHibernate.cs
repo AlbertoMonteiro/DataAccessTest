@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.Linq;
 
 namespace DataAccessTest
 {
     partial class Program
     {
-        public static TestResult NhDataAccess()
+        public static TestResult NhDataAccess(string connectionString)
         {
-            var sessionFactory = CreateSessionFactory();
+            var sessionFactory = CreateSessionFactory(connectionString);
 
             var customers = new List<Customer>();
 
@@ -23,7 +21,6 @@ namespace DataAccessTest
                 for (int i = 0; i < TOTAL_TIMES; i++)
                 {
                     customers = session.Query<Customer>().ToList();
-
                 }
             }
             stopwatch.Stop();
@@ -33,11 +30,11 @@ namespace DataAccessTest
             return new TestResult("NHibernate", stopwatch.Elapsed);
         }
 
-        private static ISessionFactory CreateSessionFactory()
+        private static ISessionFactory CreateSessionFactory(string connectionString)
         {
             return Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2008
-                .ConnectionString(c => c.FromConnectionStringWithKey("ConnectionString")))
+                .Database(MsSqlConfiguration.MsSql2012
+                .ConnectionString(c => c.Is(connectionString)))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
                 .BuildSessionFactory();
         }

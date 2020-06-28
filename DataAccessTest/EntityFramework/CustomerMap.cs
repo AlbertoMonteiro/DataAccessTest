@@ -1,19 +1,20 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccessTest.EntityFramework
 {
-    public class CustomerMap : EntityTypeConfiguration<Customer>
+    public class CustomerMap : IEntityTypeConfiguration<Customer>
     {
-        public CustomerMap()
+        public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            ToTable("Customer");
+            builder.ToTable("Customer");
 
-            HasKey(x => x.Id);
-            Property(x => x.Id).HasColumnName("id");
-            Property(x => x.FirstName).HasColumnName("first_name");
-            Property(x => x.LastName).HasColumnName("last_name");
-            Property(x => x.Email).HasColumnName("email");
-            Property(x => x.Country).HasColumnName("country");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).HasColumnName("id");
+            builder.Property(x => x.FirstName).HasColumnName("first_name");
+            builder.Property(x => x.LastName).HasColumnName("last_name");
+            builder.Property(x => x.Email).HasColumnName("email");
+            builder.Property(x => x.Country).HasColumnName("country");
         }
     }
 }

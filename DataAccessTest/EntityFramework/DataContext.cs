@@ -1,20 +1,21 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessTest.EntityFramework
 {
     public class DataContext : DbContext
     {
-        public DataContext()
-            : base("ConnectionString")
-        {
+        private readonly string connectionString;
 
-        }
+        public DataContext(string connectionString)
+        => this.connectionString = connectionString;
 
         public DbSet<Customer> Customers { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new CustomerMap());
-        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+            => builder.UseSqlServer(connectionString);
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+            => modelBuilder.ApplyConfiguration(new CustomerMap());
     }
 }

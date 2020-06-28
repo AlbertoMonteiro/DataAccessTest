@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using DataAccessTest.EntityFramework;
@@ -8,10 +7,10 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static TestResult EfDataAccess()
+        public static TestResult EfDataAccess(string connectionString)
         {
             List<Customer> customers = null;
-            var db = new DataContext();
+            var db = new DataContext(connectionString);
             var stopwatch = Stopwatch.StartNew();
             using (db)
             {

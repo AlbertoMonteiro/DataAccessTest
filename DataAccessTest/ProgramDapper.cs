@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
 using Dapper;
 
 namespace DataAccessTest
 {
     partial class Program
     {
-        public static TestResult DapperDataAccess()
+        public static TestResult DapperDataAccess(string connectionString)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             IEnumerable<Customer> customers = new List<Customer>();
 
             var stopwatch = Stopwatch.StartNew();

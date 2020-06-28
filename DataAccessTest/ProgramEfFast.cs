@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using DataAccessTest.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessTest
 {
     partial class Program
     {
-        public static TestResult EfFastDataAccess()
+        public static TestResult EfFastDataAccess(string connectionString)
         {
             List<Customer> customers = null;
-            var db = new DataContext();
-            db.Configuration.AutoDetectChangesEnabled = false;
-            db.Configuration.EnsureTransactionsForFunctionsAndCommands = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.UseDatabaseNullSemantics = false;
-            db.Configuration.ValidateOnSaveEnabled = false;
+            var db = new DataContext(connectionString);
+            db.ChangeTracker.AutoDetectChangesEnabled = false;
+            db.ChangeTracker.LazyLoadingEnabled = false;
             db.Customers.FirstOrDefault();
             var stopwatch = Stopwatch.StartNew();
             using (db)

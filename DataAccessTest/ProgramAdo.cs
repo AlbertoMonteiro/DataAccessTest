@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 
@@ -8,9 +6,8 @@ namespace DataAccessTest
 {
     partial class Program
     {
-        public static TestResult AdoDataAccess()
+        public static TestResult AdoDataAccess(string connectionString)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             var customers = new List<Customer>();
 
             var stopwatch = Stopwatch.StartNew();
