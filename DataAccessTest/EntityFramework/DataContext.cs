@@ -13,7 +13,7 @@ namespace DataAccessTest.EntityFramework
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
-            => builder.UseSqlServer(connectionString);
+            => builder.UseMySQL(connectionString);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
             => modelBuilder.ApplyConfiguration(new CustomerMap());

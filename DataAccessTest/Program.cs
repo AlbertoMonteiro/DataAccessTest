@@ -6,7 +6,7 @@ namespace DataAccessTest
     partial class Program
     {
         private const int TOTAL_TIMES = 1;
-        private const string CONNECTION_STRING = @"Server=(localdb)\mssqllocaldb;Database=DataAccessTest;Integrated security=true";
+        private const string CONNECTION_STRING = @"Server=localhost;Port=3306;Database=dataaccesstest;User=root;Password=;";
 
         static void Main(string[] args)
         {
