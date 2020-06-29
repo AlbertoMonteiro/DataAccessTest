@@ -33,9 +33,9 @@ namespace DataAccessTest
         private static ISessionFactory CreateSessionFactory(string connectionString)
         {
             return Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012
-                .ConnectionString(c => c.Is(connectionString)))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
+                .Database(MySQLConfiguration.Standard.ConnectionString(connectionString)
+                    .ShowSql())
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
                 .BuildSessionFactory();
         }
     }

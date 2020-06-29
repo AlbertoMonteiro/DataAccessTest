@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Diagnostics;
+using MySql.Data.MySqlClient;
 
 namespace DataAccessTest
 {
@@ -11,10 +11,10 @@ namespace DataAccessTest
             var customers = new List<Customer>();
 
             var stopwatch = Stopwatch.StartNew();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                var cmd = new SqlCommand("SELECT [id],[first_name],[last_name],[email],[country] FROM [dbo].[Customer]", conn);
+                var cmd = new MySqlCommand("SELECT * FROM customer", conn);
                 for (int i = 0; i < TOTAL_TIMES; i++)
                 {
                     using (var dr = cmd.ExecuteReader())
